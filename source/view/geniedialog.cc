@@ -38,30 +38,32 @@
 
 #include "view/geniedialog.hh"
 #include "view/system.hh"
-
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 using namespace ggencoder;
+
+QRegularExpressionValidator* createValidator(const QString& pattern, QObject* parent) {
+    QRegularExpression regex(pattern);
+    return new QRegularExpressionValidator(regex, parent);
+}
 
 GenieDialog::GenieDialog() : QDialog(), encoding(false), decoding(false) {
     setAttribute(Qt::WA_QuitOnClose);
     ui.setupUi(this);
 
     // setup text box validation
-    QRegExp regex;
 
-    regex        = QRegExp("[A-Fa-f0-9]+");
-    hexValidator = new QRegExpValidator(regex, this);
 
-    regex        = QRegExp("[APZLGITYEOXUKSVNapzlgityeoxuksvn]+");
-    nesValidator = new QRegExpValidator(regex, this);
+    // Function to create a QRegularExpressionValidator
 
-    regex         = QRegExp("[A-Fa-f0-9-]+");
-    snesValidator = new QRegExpValidator(regex, this);
 
-    regex            = QRegExp("[A-HJ-NPR-TV-Z0-9a-hj-np-tv-z-]+");
-    genesisValidator = new QRegExpValidator(regex, this);
+    // Usage
+    QRegularExpressionValidator* hexValidator = createValidator("[A-Fa-f0-9]+", this);
+    QRegularExpressionValidator* nesValidator = createValidator("[APZLGITYEOXUKSVNapzlgityeoxuksvn]+", this);
+    QRegularExpressionValidator* snesValidator = createValidator("[A-Fa-f0-9-]+", this);
+    QRegularExpressionValidator* genesisValidator = createValidator("[A-HJ-NPR-TV-Z0-9a-hj-np-tv-z-]+", this);
+    QRegularExpressionValidator* gbggValidator = createValidator("[A-Fa-f0-9-]+", this);
 
-    regex         = QRegExp("[A-Fa-f0-9-]+");
-    gbggValidator = new QRegExpValidator(regex, this);
 
     ui.valueEdit->setValidator(hexValidator);
     ui.addressEdit->setValidator(hexValidator);

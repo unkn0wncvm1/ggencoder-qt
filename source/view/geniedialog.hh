@@ -24,7 +24,7 @@
 #define GGENCODER_GENIEDIALOG_HH_
 
 #include <QDialog>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 
 #include "ui_maindialog.h"
 
@@ -36,11 +36,11 @@ namespace ggencoder {
         Q_OBJECT
 
       private:
-        QRegExpValidator *hexValidator;
-        QRegExpValidator *nesValidator;
-        QRegExpValidator *snesValidator;
-        QRegExpValidator *genesisValidator;
-        QRegExpValidator *gbggValidator;
+        QRegularExpressionValidator *hexValidator;
+        QRegularExpressionValidator *nesValidator;
+        QRegularExpressionValidator *snesValidator;
+        QRegularExpressionValidator *genesisValidator;
+        QRegularExpressionValidator *gbggValidator;
         Ui::MainDialog    ui;
         int               system;
         bool              encoding, decoding;

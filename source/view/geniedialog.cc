@@ -51,27 +51,14 @@ GenieDialog::GenieDialog() : QDialog(), encoding(false), decoding(false) {
     setAttribute(Qt::WA_QuitOnClose);
     ui.setupUi(this);
 
-    // setup text box validation
+            // Ensure that nesValidator is initialized
+            hexValidator = new QRegularExpressionValidator(QRegularExpression("[A-Fa-f0-9]+"), this);
+            nesValidator = new QRegularExpressionValidator(QRegularExpression("[APZLGITYEOXUKSVNapzlgityeoxuksvn]+"), this);
+            snesValidator = new QRegularExpressionValidator(QRegularExpression("[A-Fa-f0-9-]+"), this);
+            genesisValidator = new QRegularExpressionValidator(QRegularExpression("[A-HJ-NPR-TV-Z0-9a-hj-np-tv-z-]+"), this);
+            gbggValidator = new QRegularExpressionValidator(QRegularExpression("[A-Fa-f0-9-]+"), this);
 
-
-    // Function to create a QRegularExpressionValidator
-
-
-    // Usage
-    QRegularExpressionValidator* hexValidator = createValidator("[A-Fa-f0-9]+", this);
-    QRegularExpressionValidator* nesValidator = createValidator("[APZLGITYEOXUKSVNapzlgityeoxuksvn]+", this);
-    QRegularExpressionValidator* snesValidator = createValidator("[A-Fa-f0-9-]+", this);
-    QRegularExpressionValidator* genesisValidator = createValidator("[A-HJ-NPR-TV-Z0-9a-hj-np-tv-z-]+", this);
-    QRegularExpressionValidator* gbggValidator = createValidator("[A-Fa-f0-9-]+", this);
-
-
-    ui.valueEdit->setValidator(hexValidator);
-    ui.addressEdit->setValidator(hexValidator);
-    ui.compareEdit->setValidator(hexValidator);
-
-    ui.compareEdit->setMaxLength(2);
-
-    // initialize the system
+            // Initialize the system
     on_nesRadio_toggled(true);
 }
 
